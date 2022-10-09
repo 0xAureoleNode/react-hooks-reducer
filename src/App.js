@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useReducer, useState } from 'react';
+
+const initialValue = {
+  username: '',
+  email: '',
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'username':
+      return { ...state, username: action.paylaod };
+    case 'email':
+      return { ...state, email: action.payload };
+    default:
+      throw new Error(`Unknown action type: ${action.type}`);
+  }
+};
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialValue);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input
+        type="text"
+        value={state.username}
+        onChange={(event) =>
+          dispatch({ type: 'username', paylaod: event.target.value })
+        }
+      />
+      <input
+        type="email"
+        value={state.username}
+        onChange={(event) =>
+          dispatch({ type: 'email', paylaod: event.target.value })
+        }
+      />
     </div>
   );
 }
